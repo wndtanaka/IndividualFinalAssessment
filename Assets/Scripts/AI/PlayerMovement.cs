@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
             nav.SetDestination(target.position);
             FaceTarget();
         }
-        if (!nav.pathPending)
+        if (!nav.pathPending) // checking if a player has reached destinantion and there is no moer path to follow
         {
             if (nav.remainingDistance <= nav.stoppingDistance)
             {
@@ -34,26 +34,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Move(Vector3 movePoint)
+    public void Move(Vector3 movePoint) // set destination to the passed movePoint
     {
         nav.SetDestination(movePoint);
         anim.SetBool("isMoving", true);
     }
-    public void FollowTarget(Interactable newTarget)
+    public void FollowTarget(Interactable newTarget) // move target to the interactable object
     {
         nav.stoppingDistance = newTarget.radius * 0.7f;
         nav.updateRotation = false;
         target = newTarget.interactionTransform;
         anim.SetBool("isMoving", true);
     }
-    public void StopFollowingTarget()
+    public void StopFollowingTarget() // stop move to target when clicking away from the interactable object
     {
         nav.stoppingDistance = 0f;
         nav.updateRotation = true;
         target = null;
-        //  anim.SetBool("isMoving", false);
     }
-    void FaceTarget()
+    void FaceTarget() // rotate player to face the target
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));

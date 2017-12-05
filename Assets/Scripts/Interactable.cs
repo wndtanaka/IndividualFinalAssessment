@@ -18,7 +18,7 @@ public class Interactable : MonoBehaviour
     {
         if (isFocus && !hasInteracted) // making it only interacting once within the radius, by changing hasInteracted value.
         {
-            float distance = Vector3.Distance(player.position, interactionTransform.position);
+            float distance = Vector3.Distance(player.position, interactionTransform.position); // calculating distance, if less then radius
             if (distance <= radius)
             {
                 Interact();
@@ -26,7 +26,7 @@ public class Interactable : MonoBehaviour
             }
         }
     }
-    public void OnFocused(Transform playerTransform)
+    public void OnFocused(Transform playerTransform) // switching between bools, to make sure the player is on target object or not
     {
         isFocus = true;
         player = playerTransform;
